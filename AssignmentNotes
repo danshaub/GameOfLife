@@ -1,0 +1,177 @@
+Classes:
+    -Game
+    -Board
+    -Cell
+    -EdgeType
+        -Classic
+        -Doughnut
+        -Mirror
+    -Reader
+    -Randomizer
+
+Game:
+    Member Variables:
+        -Board game_board_
+        -EdgeType game_edge_type_
+            //passed to game_board_ constructor
+        -string input_file_name_ (if required)
+            //passed to game_board- constructor
+        -Randomizer board_randomizer_ (if required)
+            //passed to game_board_ constructor
+        -bool using_auto_generation_
+    
+    Constructors and Destructors:
+        -Game(Board b, EdgeType e, string f, bool a)
+            //set gameRandomizer to null
+        -Game(Board b, EdgeType e, Randomizer r, bool a)
+            //set inputFileName to null
+        -~Game()
+            //does what it does
+    
+    Functions:
+        -void Simulate()
+            -runs successive generations with given display type (auto or manual)
+            -calls display()
+            -keeps track of number of generations
+            -counts successive identical generations
+                //if count = 5, break and prompt for exit
+                //otherwise continue indefinitiely
+        -void Display(int generationNumber)
+            -prints generation number
+            -prints current generation
+        
+Board:
+    Member Variables:
+        -Cell[][] old_generation_
+        -Cell[][] new_generation_
+        -EdgeType board_edge_type_
+        -Randomizer board_randomizer_
+        -string input_file_name_
+        -Reader file_reader_
+        -int height_
+        -int width_
+
+    Constructors and Destructors:
+        -Board(EdgeType e, string f,)
+            //initializes Reader object with f
+            //initializes new_generation_ with fileReader
+            //sets boardRandomizer to null 
+        -Board(EdgeType e, Randomizer r)
+            //initializes new_generation_ with Randomizer
+            //sets fileReader and inputFileName to null
+        -~Board()
+            //does what it does
+        
+    Functions:
+        -void Iterate()
+            //calls EdgeType.Iterate(Cell[][] old_generation)
+            //updates old_generation_ and new_generation_ accodringly
+        -string ToString()
+            //gives a string representation of the board's new_generation_
+        -void Randomize()
+            //Initializes new_generation_ with random values
+        -void Read()
+            //Initializes new_generation_ with values obtained from input file
+
+Cell:
+    Member Variables:
+        -bool is_alive_
+    
+    Constructors:
+        -Cell(bool a)
+            //initializes is_alive_ with a
+        -~Cell()
+            //does what it does
+    
+    Functions:
+        -void UpdateGeneration(int neighbors);
+    
+
+EdgeType:
+    Member Variables:
+        none!
+    
+    Constructors and Destructors:
+        -EdgeType()
+            //Only Default required
+        -~EdgeType()
+            //does what it does
+        
+    Functions:
+        -virtual Cell[][] Iterate(Cell[][] old_generation) = 0
+            //Virtual function for iteration logic. Returns the new generation.
+
+Classic: public EdgeType:
+        Member Variables:
+        none!
+    
+    Constructors and Destructors:
+        -Classic()
+            //Only Default required
+        -~Classic()
+            //does what it does
+        
+    Functions:
+        -virtual Cell[][] Iterate(Cell[][] old_generation) = 0
+            //function for iteration logic using classic edges. Returns the new generation.
+
+Doughnut: public EdgeType:
+        Member Variables:
+        none!
+    
+    Constructors and Destructors:
+        -Doughnut()
+            //Only Default required
+        -~Doughnut()
+            //does what it does
+        
+    Functions:
+        -virtual Cell[][] Iterate(Cell[][] old_generation) = 0
+            //function for iteration logic using Doughnut edges. Returns the new generation.
+
+Mirror: public EdgeType:
+        Member Variables:
+        none!
+    
+    Constructors and Destructors:
+        -Mirror()
+            //Only Default required
+        -~Mirror()
+            //does what it does
+        
+    Functions:
+        -virtual Cell[][] Iterate(Cell[][] old_generation) = 0
+            //function for iteration logic using Mirror edges. Returns the new generation.
+
+Reader:
+    Member Variables:
+        -string input_file_name_
+    
+    Constructors and Destructors:
+        -Reader(string f)
+            //sets input_file_name_ to f
+        -~Reader()
+            //does what it does
+    
+    Functions:
+        -Cell[][] Read()
+            //Reades from input file and returns the accodring cell array
+    
+Randomizer:
+    Member Variables:
+        -int width_
+        -int height_
+        -double percent_alive_
+    
+    Constructors and Destructors:
+        -Randomizer(int w, int h, double p)
+            //Basic constructor
+        -~Randomizer()
+            //Does what it does
+    
+    Functions:
+        -Cell[][] Generate()
+            //uses member variables to generate a random cell array
+
+        
+    
