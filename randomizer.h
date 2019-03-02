@@ -19,6 +19,8 @@ class Randomizer{
         ~Randomizer();
 
         Cell** GenerateCellArray();
+
+        int* getDimensions();
 };
 
 #endif //RANDOMIZER_H

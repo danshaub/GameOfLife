@@ -14,7 +14,19 @@ using namespace std;
 void printCellArr(Cell** e, int width, int hight);
 
 int main(){
-    
+    Board * b = new Board(new Doughnut(), new Randomizer(10, 13, 20));
+    for(int i = 0; i < 5; i++){
+        cout << b->ToString() << endl;
+        b->Iterate();
+    }
+
+    Board * c = new Board(new Doughnut(), new GameReader("test.txt"));
+    for(int i = 0; i < 100; i++){
+        cout << c->ToString() << endl;
+        c->Iterate();
+    }
+
+    return 0;
 }
 
 void printCellArr(Cell** e, int hight, int width){

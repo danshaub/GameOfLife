@@ -14,7 +14,7 @@ class EdgeType{
         ~EdgeType();
 
         //Virtual Function that contains logic for generation calculations
-        virtual Cell** Iterate(Cell** old_generation, Cell** new_generation, int width, int hight) = 0;
+        virtual Cell** Iterate(Cell** old_generation, int width, int hight) = 0;
 };
 
 #endif // EDGE_TYPE_H

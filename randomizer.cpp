@@ -37,3 +37,12 @@ Cell** Randomizer::GenerateCellArray(){
 
     return cells;
 }
+
+int* Randomizer::getDimensions(){
+    int* dim = new int[2];
+
+    dim[0] = hight_;
+    dim[1] = width_;
+
+    return dim;
+}
