@@ -14,44 +14,13 @@ using namespace std;
 void printCellArr(Cell** e, int width, int hight);
 
 int main(){
-    GameReader g("test.txt");
-
-    if(!g.FileFormatIsValid())
-        return 1;
-
-    int* dim = new int[2];
-
-    dim = g.ReadDimensions();
-
-    int hight = dim[0];
-    int width = dim[1];
-
-    Cell** t1 = new Cell*[hight];
-    Cell** t2 = new Cell*[hight];
-
-    for(int i = 0; i < hight; i++){
-        t1[i] = new Cell[width];
-        t2[i] = new Cell[width];
-    }
-
-    t1 = g.ReadCells();
-
-    printCellArr(t1, hight, width);
-
-    EdgeType * e = new Classic();
-
-    t2 = e->Iterate(t1, t2, hight, width);
-
-    printCellArr(t2, hight, width);
-
-    return 0;
+    
 }
 
 void printCellArr(Cell** e, int hight, int width){
     cout << endl;
     cout << hight << endl << width << endl;
     for(int i = 0; i < hight; i++){
-        cout << i+1 << ":  ";
         for(int j = 0; j < width; j++){
             if(e[i][j].GetIsAlive()){
                 cout << "X";
@@ -64,7 +33,74 @@ void printCellArr(Cell** e, int hight, int width){
     }
 }
 
-//EdgeTypeTesting:
+//Randomizer Testing:
+    // int main()
+    // {
+    //     int hight = 10;
+    //     int width = 20;
+
+    //     Cell **t1 = new Cell *[hight];
+    //     Cell **t2 = new Cell *[hight];
+
+    //     for (int i = 0; i < hight; i++)
+    //     {
+    //         t1[i] = new Cell[width];
+    //         t2[i] = new Cell[width];
+    //     }
+
+    //     Randomizer r(hight, width, 42893);
+
+    //     t1 = r.GenerateCellArray();
+
+    //     printCellArr(t1, hight, width);
+
+    //     EdgeType *e = new Classic();
+
+    //     e->Iterate(t1, t2, hight, width);
+
+    //     printCellArr(t2, hight, width);
+
+    //     return 0;
+    // }
+
+//GameReader Testing:
+    // int main()
+    // {
+    //     GameReader g("test.txt");
+
+    //     if (!g.FileFormatIsValid())
+    //         return 1;
+
+    //     int *dim = new int[2];
+
+    //     dim = g.ReadDimensions();
+
+    //     int hight = dim[0];
+    //     int width = dim[1];
+
+    //     Cell **t1 = new Cell *[hight];
+    //     Cell **t2 = new Cell *[hight];
+
+    //     for (int i = 0; i < hight; i++)
+    //     {
+    //         t1[i] = new Cell[width];
+    //         t2[i] = new Cell[width];
+    //     }
+
+    //     t1 = g.ReadCells();
+
+    //     printCellArr(t1, hight, width);
+
+    //     EdgeType *e = new Classic();
+
+    //     t2 = e->Iterate(t1, t2, hight, width);
+
+    //     printCellArr(t2, hight, width);
+
+    //     return 0;
+    // }
+
+//EdgeType Testing:
 
     // int main(){
     //     int width = 15;

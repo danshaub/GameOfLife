@@ -158,7 +158,7 @@ Reader!!!:
         -Cell[][] Read()
             //Reades from input file and returns the accodring cell array
     
-Randomizer:
+Randomizer*:
     Member Variables:
         -int width_
         -int height_
