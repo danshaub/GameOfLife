@@ -73,7 +73,7 @@ Board:
         -void Read()
             //Initializes new_generation_ with values obtained from input file
 
-Cell:
+Cell*:
     Member Variables:
         -bool is_alive_
     
@@ -87,7 +87,7 @@ Cell:
         -void UpdateGeneration(int neighbors);
     
 
-EdgeType:
+EdgeType*:
     Member Variables:
         none!
     
@@ -101,7 +101,7 @@ EdgeType:
         -virtual Cell[][] Iterate(Cell[][] old_generation) = 0
             //Virtual function for iteration logic. Returns the new generation.
 
-Classic: public EdgeType:
+Classic*: public EdgeType:
         Member Variables:
         none!
     
@@ -115,7 +115,7 @@ Classic: public EdgeType:
         -virtual Cell[][] Iterate(Cell[][] old_generation) = 0
             //function for iteration logic using classic edges. Returns the new generation.
 
-Doughnut: public EdgeType:
+Doughnut*: public EdgeType:
         Member Variables:
         none!
     
@@ -129,7 +129,7 @@ Doughnut: public EdgeType:
         -virtual Cell[][] Iterate(Cell[][] old_generation) = 0
             //function for iteration logic using Doughnut edges. Returns the new generation.
 
-Mirror: public EdgeType:
+Mirror*: public EdgeType:
         Member Variables:
         none!
     
@@ -143,9 +143,10 @@ Mirror: public EdgeType:
         -virtual Cell[][] Iterate(Cell[][] old_generation) = 0
             //function for iteration logic using Mirror edges. Returns the new generation.
 
-Reader:
+Reader!!!:
     Member Variables:
         -string input_file_name_
+        -ifstream file_input_stream_
     
     Constructors and Destructors:
         -Reader(string f)
