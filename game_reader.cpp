@@ -16,6 +16,7 @@ GameReader::GameReader(string f){
 
 //Destructs file_input_stream
 GameReader::~GameReader(){
+    file_input_stream_.close();
 }
 
 bool GameReader::InStreamIsOpen(){
@@ -36,39 +37,39 @@ void GameReader::ReturnToFileStart(){
 bool GameReader::FileFormatIsValid(){
     ReturnToFileStart();
 
-    regex r("[^0-9]"); // searches for non numeric characters
-    int* dimensions = new int[2];
-    string line = "";
+    // regex r("[^0-9]"); // searches for non numeric characters
+    // int* dimensions = new int[2];
+    // string line = "";
 
-    try{
-        //takes first line of file and 
-        //uses a regex test to make sure
-        //it is purly numeric
-        getline(file_input_stream_, line);
-        if(regex_match(line, r)){
-            throw 0;
-        }
-        //parses that numeric value to test for 
-        dimensions[0] = stoi(line);
+    // try{
+    //     //takes first line of file and 
+    //     //uses a regex test to make sure
+    //     //it is purly numeric
+    //     getline(file_input_stream_, line);
+    //     if(regex_match(line, r)){
+    //         throw 0;
+    //     }
+    //     //parses that numeric value to test for 
+    //     dimensions[0] = stoi(line);
 
-        //takes input from the second line and
-        //parses the int it contains
-        getline(file_input_stream_, line);
-        if(regex_match(line, r)){
-            throw 0;
-        }
-        dimensions[1] = stoi(line);
-    }
-    catch(int e){
-        cerr << "Invalid argument in board dimensions:  " << line << endl;
-        cerr << "Argument contained a non-numeric character" << endl;
-        return false;
-    }
-    catch(const out_of_range& e){
-        cerr << "Invalid argument in board dimensions:  " << line << endl;
-        cerr << "Numeric argument too large to be contained in int" << endl;
-        return false;
-    }
+    //     //takes input from the second line and
+    //     //parses the int it contains
+    //     getline(file_input_stream_, line);
+    //     if(regex_match(line, r)){
+    //         throw 0;
+    //     }
+    //     dimensions[1] = stoi(line);
+    // }
+    // catch(int e){
+    //     cerr << "Invalid argument in board dimensions:  " << line << endl;
+    //     cerr << "Argument contained a non-numeric character" << endl;
+    //     return false;
+    // }
+    // catch(const out_of_range& e){
+    //     cerr << "Invalid argument in board dimensions:  " << line << endl;
+    //     cerr << "Numeric argument too large to be contained in int" << endl;
+    //     return false;
+    // }
 
     return true;
 }
@@ -103,29 +104,30 @@ Cell** GameReader::ReadCells(){
     if(!FileFormatIsValid())
         return nullptr;
 
+    int hight = ReadDimensions()[0];
+    int width = ReadDimensions()[1];
 
-    //collects dimensions and places pointer at correct line
-    int* dimensions = new int[2];
-    dimensions = ReadDimensions();
-
-    int hight = dimensions[0];
-    int width = dimensions[1];
+    //cout << hight << " " << width << endl;
 
     string line = "";
 
-    Cell** cells;
-    const size_t row_pointers_bytes = hight * sizeof *cells;
-    const size_t row_elements_bytes = width * sizeof **cells;
-    array = malloc(row_pointers_bytes + (hight * row_elements_bytes));
+    cout << "HERE\n";
+    Cell** cells = new Cell*[hight];
     for(int i = 0; i < hight; i++){
+        cout << "DEBUG1\n";
         getline(file_input_stream_, line);
+        cout << "DEBUG2\n";
         cells[i] = new Cell[hight];
+        cout << "DEBUG3\n";
         for(int j = 0; j < width; j++){
+            cout << i << "  " << j << endl;
             if(line[j] =='X')
                 cells[i][j].SetIsAlive(true);
-            else
+            else if(line[j] == '-')
                 cells[i][j].SetIsAlive(false);
+            cout << i << "  " << j << endl;
         }
+        cout << endl;
     }
 
     return cells;

@@ -11,8 +11,12 @@ Mirror::~Mirror(){
 
 }
 
-Cell** Mirror::Iterate(Cell** old_generation, Cell** new_generation, int hight, int width){
-    int test1 = 0;
+Cell** Mirror::Iterate(Cell** old_generation, int hight, int width){
+    Cell** new_generation = new Cell *[hight];
+
+    for (int i = 0; i < hight; i++){
+        new_generation[i] = new Cell[width];
+    }
     //iterates through each row of the array
     for(int row = 0; row < hight; row++){
         //iterates through each column of the array
