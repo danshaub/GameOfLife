@@ -113,7 +113,10 @@ Cell** GameReader::ReadCells(){
 
     string line = "";
 
-    Cell** cells = new Cell*[hight];
+    Cell** cells;
+    const size_t row_pointers_bytes = hight * sizeof *cells;
+    const size_t row_elements_bytes = width * sizeof **cells;
+    array = malloc(row_pointers_bytes + (hight * row_elements_bytes));
     for(int i = 0; i < hight; i++){
         getline(file_input_stream_, line);
         cells[i] = new Cell[hight];
