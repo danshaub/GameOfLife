@@ -60,7 +60,12 @@ Board::Board(EdgeType *board_edge_type, GameReader *file_reader){
 }
 
 Board::~Board(){
-
+    for(int i = 0; i < hight_; i++){
+        delete[] generation_[i];
+    }
+    delete board_edge_type_;
+    delete board_randomizer_;
+    delete file_reader_;
 }
 
 

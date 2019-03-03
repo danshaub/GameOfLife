@@ -16,6 +16,7 @@ GameReader::GameReader(string f){
 
 //Destructs file_input_stream
 GameReader::~GameReader(){
+    file_input_stream_.close();
 }
 
 bool GameReader::InStreamIsOpen(){
@@ -103,26 +104,30 @@ Cell** GameReader::ReadCells(){
     if(!FileFormatIsValid())
         return nullptr;
 
+    int hight = ReadDimensions()[0];
+    int width = ReadDimensions()[1];
 
-    //collects dimensions and places pointer at correct line
-    int* dimensions = new int[2];
-    dimensions = ReadDimensions();
-
-    int hight = dimensions[0];
-    int width = dimensions[1];
+    //cout << hight << " " << width << endl;
 
     string line = "";
 
+    cout << "HERE\n";
     Cell** cells = new Cell*[hight];
     for(int i = 0; i < hight; i++){
+        cout << "DEBUG1\n";
         getline(file_input_stream_, line);
+        cout << "DEBUG2\n";
         cells[i] = new Cell[hight];
+        cout << "DEBUG3\n";
         for(int j = 0; j < width; j++){
+            cout << i << "  " << j << endl;
             if(line[j] =='X')
                 cells[i][j].SetIsAlive(true);
-            else
+            else if(line[j] == '-')
                 cells[i][j].SetIsAlive(false);
+            cout << i << "  " << j << endl;
         }
+        cout << endl;
     }
 
     return cells;

@@ -40,7 +40,7 @@ Game:
             -prints generation number
             -prints current generation
         
-Board:
+Board*:
     Member Variables:
         -Cell[][] old_generation_
         -Cell[][] new_generation_

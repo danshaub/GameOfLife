@@ -14,13 +14,18 @@ using namespace std;
 void printCellArr(Cell** e, int width, int hight);
 
 int main(){
-    Board * b = new Board(new Doughnut(), new Randomizer(10, 13, 20));
+    Board * b = new Board(new Classic(), new Randomizer(10, 13, 20));
     for(int i = 0; i < 5; i++){
         cout << b->ToString() << endl;
         b->Iterate();
     }
 
-    Board * c = new Board(new Doughnut(), new GameReader("test.txt"));
+    //cout << "1HERE\n";
+
+    Board * c = new Board(new Classic(), new GameReader("test.txt"));
+    
+    //cout << "2HERE\n";
+
     for(int i = 0; i < 100; i++){
         cout << c->ToString() << endl;
         c->Iterate();
@@ -78,38 +83,38 @@ void printCellArr(Cell** e, int hight, int width){
 //GameReader Testing:
     // int main()
     // {
-    //     GameReader g("test.txt");
+        // GameReader g("test.txt");
 
-    //     if (!g.FileFormatIsValid())
-    //         return 1;
+        // if (!g.FileFormatIsValid())
+        //     return 1;
 
-    //     int *dim = new int[2];
+        // int *dim = new int[2];
 
-    //     dim = g.ReadDimensions();
+        // dim = g.ReadDimensions();
 
-    //     int hight = dim[0];
-    //     int width = dim[1];
+        // int hight = dim[0];
+        // int width = dim[1];
 
-    //     Cell **t1 = new Cell *[hight];
-    //     Cell **t2 = new Cell *[hight];
+        // Cell **t1 = new Cell *[hight];
+        // Cell **t2 = new Cell *[hight];
 
-    //     for (int i = 0; i < hight; i++)
-    //     {
-    //         t1[i] = new Cell[width];
-    //         t2[i] = new Cell[width];
-    //     }
+        // for (int i = 0; i < hight; i++)
+        // {
+        //     t1[i] = new Cell[width];
+        //     t2[i] = new Cell[width];
+        // }
 
-    //     t1 = g.ReadCells();
+        // t1 = g.ReadCells();
 
-    //     printCellArr(t1, hight, width);
+        // printCellArr(t1, hight, width);
 
-    //     EdgeType *e = new Classic();
+        // EdgeType *e = new Classic();
 
-    //     t2 = e->Iterate(t1, t2, hight, width);
+        // t2 = e->Iterate(t1, t2, hight, width);
 
-    //     printCellArr(t2, hight, width);
+        // printCellArr(t2, hight, width);
 
-    //     return 0;
+        // return 0;
     // }
 
 //EdgeType Testing:
