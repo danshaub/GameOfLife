@@ -13,26 +13,9 @@ using namespace std;
 
 void printCellArr(Cell** e, int width, int hight);
 
-int main(){
-    Board * b = new Board(new Classic(), new Randomizer(10, 13, 20));
-    for(int i = 0; i < 5; i++){
-        cout << b->ToString() << endl;
-        b->Iterate();
+    int main(){
+        
     }
-
-    //cout << "1HERE\n";
-
-    Board * c = new Board(new Classic(), new GameReader("test.txt"));
-    
-    //cout << "2HERE\n";
-
-    for(int i = 0; i < 100; i++){
-        cout << c->ToString() << endl;
-        c->Iterate();
-    }
-
-    return 0;
-}
 
 void printCellArr(Cell** e, int hight, int width){
     cout << endl;
@@ -50,35 +33,53 @@ void printCellArr(Cell** e, int hight, int width){
     }
 }
 
-//Randomizer Testing:
-    // int main()
-    // {
-    //     int hight = 10;
-    //     int width = 20;
+//Board Testing:
+    //int main(){
+        //     Board * b = new Board(new Classic(), new Randomizer(30, 50, 20));
+        //     for(int i = 0; i < 5; i++){
+        //         cout << b->ToString() << endl;
+        //         b->Iterate();
+        //     }
 
-    //     Cell **t1 = new Cell *[hight];
-    //     Cell **t2 = new Cell *[hight];
+        //     Board * c = new Board(new Classic(), new GameReader("test.txt"));
 
-    //     for (int i = 0; i < hight; i++)
-    //     {
-    //         t1[i] = new Cell[width];
-    //         t2[i] = new Cell[width];
-    //     }
+        //     for(int i = 0; i < 100; i++){
+        //         cout << c->ToString() << endl;
+        //         c->Iterate();
+        //     }
 
-    //     Randomizer r(hight, width, 42893);
+        //     return 0;
+        // }
 
-    //     t1 = r.GenerateCellArray();
+    //Randomizer Testing:
+        // int main()
+        // {
+        //     int hight = 10;
+        //     int width = 20;
 
-    //     printCellArr(t1, hight, width);
+        //     Cell **t1 = new Cell *[hight];
+        //     Cell **t2 = new Cell *[hight];
 
-    //     EdgeType *e = new Classic();
+        //     for (int i = 0; i < hight; i++)
+        //     {
+        //         t1[i] = new Cell[width];
+        //         t2[i] = new Cell[width];
+        //     }
 
-    //     e->Iterate(t1, t2, hight, width);
+        //     Randomizer r(hight, width, 42893);
 
-    //     printCellArr(t2, hight, width);
+        //     t1 = r.GenerateCellArray();
 
-    //     return 0;
-    // }
+        //     printCellArr(t1, hight, width);
+
+        //     EdgeType *e = new Classic();
+
+        //     e->Iterate(t1, t2, hight, width);
+
+        //     printCellArr(t2, hight, width);
+
+        //     return 0;
+        // }
 
 //GameReader Testing:
     // int main()

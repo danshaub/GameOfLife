@@ -27,7 +27,7 @@ Cell** Randomizer::GenerateCellArray(){
     Cell **cells = new Cell *[hight_];
 
     for(int i = 0; i < hight_; i++){
-        cells[i] = new Cell[width_];
+        cells[i] = (Cell*)malloc(width_ * sizeof(Cell));
         for(int j = 0; j < width_; j++){
             double d = (double)rand()/RAND_MAX;
             bool e = (d <= percent_alive_);
