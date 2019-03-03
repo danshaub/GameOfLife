@@ -21,9 +21,9 @@ Game:
         -bool using_auto_generation_
     
     Constructors and Destructors:
-        -Game(Board b, EdgeType e, string f, bool a)
+        -Game(Board b, EdgeType e, string f, int a)
             //set gameRandomizer to null
-        -Game(Board b, EdgeType e, Randomizer r, bool a)
+        -Game(Board b, EdgeType e, Randomizer r, int a)
             //set inputFileName to null
         -~Game()
             //does what it does

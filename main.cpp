@@ -13,9 +13,11 @@ using namespace std;
 
 void printCellArr(Cell** e, int width, int hight);
 
-    int main(){
-        
-    }
+int main(){
+
+
+    return 0;
+}
 
 void printCellArr(Cell** e, int hight, int width){
     cout << endl;
