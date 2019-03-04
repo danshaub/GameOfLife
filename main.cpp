@@ -159,7 +159,7 @@ int main(){
          << "-Auto (generations are displayed to the console automatically)\n"
          << "-Manual (generations are displayed when you press enter)\n"
          << "-File (generations are displayed to a file of your choosing)\n"
-         << "[a,m,f]";
+         << "[a,m,f]\n";
 
     cin >> answer;
 
