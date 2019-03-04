@@ -1,40 +1,45 @@
-// #ifndef GAME_H
-// #define GAME_H
+#ifndef GAME_H
+#define GAME_H
 
-// #include "board.h"
-// #include "cell.h"
-// #include "classic.h"
-// #include "doughnut.h"
-// #include "edge_type.h"
-// #include "mirror.h"
-// #include "randomizer.h"
-// #include "game_reader.h"
-// #include <iostream>
+#include "board.h"
+#include "cell.h"
+#include "classic.h"
+#include "doughnut.h"
+#include "edge_type.h"
+#include "mirror.h"
+#include "randomizer.h"
+#include "game_reader.h"
+#include <iostream>
 
-// class Game{
-//     private:
-//         Board game_board_;
-//         EdgeType game_edge_type_;
-//         string input_file_name_;
-//         Randomizer board_randomizer_;
+class Game{
+    private:
+        Board *game_board_;
 
-//         //0-automatic with a pause
-//         //1-manual
-//         //2-output to file
-//         int display_type_; 
+        //0-automatic with a pause
+        //1-manual
+        //2-output to file
+        int display_type_; 
+        const int max_generations_ = 1000;
 
-//         void Display();
-//     public:
-//         Game();
+        void Display();
+        void DisplayAuto();
+        void DisplayManual();
+        void DisplayToFile();
 
-//         Game(Board game_board; EdgeType game_edge_type, string input_file_name, int display_type);
+        //Returns true if both passed string representations
+        //of the current and past simulation are equivilant
+        bool SimulationIsStable(string current_gen, string past_gen);
+    public:
+        Game();
 
-//         Game(Board game_board; EdgeType game_edge_type, Randomizer board_randomizer, int display_type);
+        Game(EdgeType *game_edge_type, string input_file_name, int display_type);
 
-//         ~Game();
+        Game(EdgeType *game_edge_type, Randomizer *board_randomizer, int display_type);
 
-//         void Simulate();
+        ~Game();
 
-// };
+        void Simulate();
 
-// #endif //GAME_H
+};
+
+#endif //GAME_H

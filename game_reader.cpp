@@ -7,9 +7,16 @@
 
 using namespace std;
 
+GameReader::GameReader(){
+
+}
+
 // Takes a string as a parameter and initializes
 // file_input_stream_ with the string as its file name
 GameReader::GameReader(string f){
+    if(InStreamIsOpen()){
+        file_input_stream_.close();
+    }
     input_file_name_ = f;
     file_input_stream_.open(input_file_name_);
 }

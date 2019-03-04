@@ -17,6 +17,8 @@ class GameReader{
         ifstream file_input_stream_;
     
     public:
+        //Default constructor, doesn't initialize anything.
+        GameReader();
         // Takes a string as a parameter and initializes
         // file_input_stream_ with the string as its file name
         GameReader(string f);
