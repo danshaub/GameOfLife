@@ -44,7 +44,7 @@ Cell** Doughnut::Iterate(Cell** old_generation, int height, int width){
                     int x = 0;
                     int y = 0;
                     
-                    //if index is past boundaries, it wraps
+                    //if index is past boundaries, it wraps around
                     //-1 goes to width or height minus 1
                     //width or height goes to zero
                     x = (i == -1) ? height-1 : i % height;

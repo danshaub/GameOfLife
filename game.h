@@ -27,25 +27,39 @@ class Game{
         //1-manual
         //2-output to file
         int display_type_; 
-        const int max_generations_ = 1000;
+        const int MAX_GENERATIONS__ = 1000;
 
-        void Display();
+        //Displays the simulation in the console with automatic timing
         void DisplayAuto();
+
+        //Displays the simulation in the console with manual timing
         void DisplayManual();
+
+        //Displays the entire simulation to an output file
+        //that is asked for at this function call
         void DisplayToFile();
 
         //Returns true if both passed string representations
         //of the current and past simulation are equivilant
         bool SimulationIsStable(string current_gen, string past_gen);
+
     public:
+        //Default Constructor: Auto displaying default board
         Game();
 
+        //Overloaded Constructor for use with reading from an imput file
+        //Accepts a string representing the input file name
         Game(EdgeType *game_edge_type, string input_file_name, int display_type);
 
+        //Overloaded Constructor for use with randomizing the starting board
+        //Accepts a randomizer object pointer
         Game(EdgeType *game_edge_type, Randomizer *board_randomizer, int display_type);
 
+        //Default Destructor
         ~Game();
 
+        //Calls the correct display function based
+        //on the int display_type_
         void Simulate();
 
 };

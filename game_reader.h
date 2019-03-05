@@ -22,6 +22,7 @@ class GameReader{
         //holds string associated with file name
         string input_file_name_;
 
+        //file reader object
         ifstream file_input_stream_;
     
     public:

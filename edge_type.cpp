@@ -10,10 +10,11 @@ Assignment:  2- Game of Life
 #include "edge_type.h"
 #include <iostream>
 
+//Default Constructor (unused)
 EdgeType::EdgeType(){
 
 }
-
+//Defualt Destructor (unused)
 EdgeType::~EdgeType(){
 
 }

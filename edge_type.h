@@ -15,10 +15,10 @@ using namespace std;
 
 class EdgeType{
     public:
-        //Constructor (default only)
+        //Default Constructor (unused)
         EdgeType();
 
-        //Destructor
+        //Default Destructor (unused)
         ~EdgeType();
 
         //Virtual Function that contains logic for generation calculations

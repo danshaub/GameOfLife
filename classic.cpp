@@ -40,6 +40,7 @@ Cell** Classic::Iterate(Cell** old_generation, int height, int width){
                         continue;
                     }
 
+                    //tests to see if the values of i and j are within the bounds of the board
                     if((0 <= i && i < height) && (0 <= j && j < width)) {
                         neighbors+=old_generation[i][j].GetIsAlive();
                     }

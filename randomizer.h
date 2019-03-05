@@ -23,11 +23,15 @@ class Randomizer{
         //Takes height, width as a parameter
         Randomizer(int h, int w, double percent_alive);
 
-        //Basic Destructor
+        //Default Destructor
         ~Randomizer();
 
+        //Returns a reference to a random 2D array of Cells
+        //with the specified dimensions
         Cell** GenerateCellArray();
 
+        //Returns an int array of length 2 that
+        //stores the dimensions of the 2D array
         int* GetDimensions();
 };
 
