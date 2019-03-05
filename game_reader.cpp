@@ -1,3 +1,11 @@
+/*
+Name:  Dan Haub
+Student ID#:  2315346
+Chapman Email:  haub@chapman.edu
+Course Number and Section:  CPSC 350-01
+Assignment:  2- Game of Life
+*/
+
 #include "cell.h"
 #include "game_reader.h"
 #include <iostream>
@@ -82,7 +90,7 @@ bool GameReader::FileFormatIsValid(){
                 throw 1;
             }
             for(int j = 0; j < dimensions[1]; j++){
-                reached_end_chars = j >= line.length()-1;
+                reached_end_chars = (j > line.length()-1);
                 if(reached_end_chars){
                     throw 2;
                 }
@@ -151,14 +159,14 @@ Cell** GameReader::ReadCells(){
     if(!FileFormatIsValid())
         return nullptr;
 
-    int hight = ReadDimensions()[0];
+    int height = ReadDimensions()[0];
     int width = ReadDimensions()[1];
 
     string line = "";
 
-    Cell** cells = new Cell*[hight];
+    Cell** cells = new Cell*[height];
     
-    for(int i = 0; i < hight; i++){
+    for(int i = 0; i < height; i++){
         getline(file_input_stream_, line);
         cells[i] = (Cell*)malloc(width * sizeof(Cell));
         for(int j = 0; j < width; j++){

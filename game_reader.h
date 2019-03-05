@@ -1,3 +1,11 @@
+/*
+Name:  Dan Haub
+Student ID#:  2315346
+Chapman Email:  haub@chapman.edu
+Course Number and Section:  CPSC 350-01
+Assignment:  2- Game of Life
+*/
+
 #ifndef GAME_READER_H
 #define GAME_READER_H
 
@@ -46,7 +54,7 @@ class GameReader{
 
         //Reads the two numbers at the top of the file
         //and returns them in an int[2]
-        //hight will be index 0 and width will be index 1s
+        //height will be index 0 and width will be index 1s
         int* ReadDimensions();
 
         //Reads 2D array of cells from input file

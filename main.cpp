@@ -1,3 +1,11 @@
+/*
+Name:  Dan Haub
+Student ID#:  2315346
+Chapman Email:  haub@chapman.edu
+Course Number and Section:  CPSC 350-01
+Assignment:  2- Game of Life
+*/
+
 #include "board.h"
 #include "cell.h"
 #include "classic.h"
@@ -10,9 +18,8 @@
 #include <iostream>
 #include <math.h>
 #include <string>
+#include <cstdlib> 
 using namespace std;
-
-void printCellArr(Cell** e, int width, int hight);
 
 int main(){
     char answer = '\0'; // placeholder for all prompt answers
@@ -20,73 +27,76 @@ int main(){
 
     bool randomized; // true if user wants a randomized board to start
     Randomizer * randomizer; // if randomized is true, this will be initialized and passed to the board's constructor
-    int hight; // random board's hight
+    int height; // random board's height
     int width; // random board's width
     double alive_percentage; // random board's alive percentage
     
     GameReader * game_reader; // if randomized is false, this will be initialized and passed to the board's constructor
     string input_file_name; // name of input file for initial board state
 
-    int boundary_mode; // 0-classic, 1-doughnut, 2-mirror
     int display_mode; // 0-auto, 1-manual, 2-output file
 
-    EdgeType * edge_mode;
+    EdgeType * edge_mode; //EdgeType object to be used in constructor for the_game
     Game * the_game; // the allmighty game object! Behold its abstraction!
 
+    //Introduction
     cout << "~~~~WELCOME TO THE GAME OF LIFE!~~~~\n\n"
          << "*When I ask you things, the first option is the default*\n"
-         << "*If what you put doesn't match any options, you get the default*\n\n"
-         << "Would you like to see the rules? [y/n]\n";
+         << "*If what you put doesn't match any options, you get the default*\n\n";
 
-    cin >> answer;
-    if(answer == 'n'){
-        cout << "\nOkay, moving on!\n\n";
-    }
-    else{
-        cout << "\nthe rules\n\n";
-    }
 
+    //Is the board randomized or read from a file?
     cout << "Would you like the initial board to be randomized,\n"
-         << "or do you have an input file in mind? [r,i]\n";
-    
+         << "or do you have an input file in mind? [r,i]\n";    
     cin >> answer;
+
+    //file
     if(answer == 'i'){
         randomized = false;
         game_reader = new GameReader();
         cout << "\n"
-             << "You have chosen to start with an input file!\n"
-             << "Tell me, what is the name of this file?\n";
+             << "You have chosen to start with an input file!\n";
+
+        do{
+            
+            cout << "Tell me, what is the name of this file?\n";
+            
+            cin >> input_file_name;
+
+            game_reader->SetFileName(input_file_name);
         
-        cin >> input_file_name;
+            //Test if the given file is valid
+            if(game_reader->InStreamIsOpen() && game_reader->FileFormatIsValid()){
+                cout << "\nExcelent choice of file!\n";
+                success = true;
+            }
 
-        game_reader->SetFileName(input_file_name);
-
-        if(game_reader->InStreamIsOpen() && game_reader->FileFormatIsValid()){
-            cout << "\nExcelent choice of file!\n";
-            success = true;
-        }
-
-        //TODO Figure out how to test multiple files!!
-        else{ 
-            cout << "\nThat file was lame!\n"
-                 << "I can't handle this!\n";
-            return 1;
-        }
-
+            //Program exits if file is invalid
+            else{ 
+                cout << "\nThat file was lame!\n"
+                     << "Please give me another!\n";
+                success = false;
+            }
+        }while(!success);
     }
+    //random
     else{
         randomized = true;
         cout << "\nYou have chosen to start with a random board!\n"
              << "Let me ask you some stuff about the board:\n";
         
+        //gathering values for Randomizer constructor
         success = false;
+        //height
         do{
             try{
-                cout << "What is the hight of the board that you want?\n";
-                string hight_string;
-                cin >> hight_string;
+                cout << "What is the height of the board that you want?\n";
+                string height_string;
+                cin >> height_string;
 
-                hight = stoi(hight_string);
+                height = stoi(height_string);
+
+                height = abs(height);
 
                 success = true;
             }
@@ -96,6 +106,7 @@ int main(){
             }
         }while(!success);
 
+        //width
         do{
             try{
                 cout << "What is the width of the board that you want?\n";
@@ -104,6 +115,8 @@ int main(){
 
                 width = stoi(width_string);
 
+                width = abs(width);
+
                 success = true;
             }
             catch (exception e){
@@ -112,6 +125,7 @@ int main(){
             }
         }while(!success);
 
+        //percent alive
         do{
             try{
                 cout << "What percent of cells alive that you want? (\"45.6\%\" would be simply \"45.6\"\n";
@@ -120,6 +134,8 @@ int main(){
 
                 alive_percentage = stod(alive_percentage_string);
 
+                alive_percentage = fabs(alive_percentage);
+
                 success = true;
             }
             catch (exception e){
@@ -127,10 +143,12 @@ int main(){
                 cout << "\nSorry, that was invalid. Let me ask again\n";
             }
         }while(!success);
-        randomizer = new Randomizer(hight, width, alive_percentage);
+        randomizer = new Randomizer(height, width, alive_percentage);
         cout << "Your game will be very random indeed!\n";
     }
 
+
+    //What is the edge type desired?
     cout << "\nNow, how would you like your edges to be calculated?\n"
          << "-Classic mode (out of bounds doesn't exist)\n"
          << "-Doughnut mode (out of bounds wraps around to the other side)\n"
@@ -139,22 +157,25 @@ int main(){
 
     cin >> answer;
 
+    //doughnut
     if(answer == 'd'){
         cout << "\nYou chose Doughnut mode";
         edge_mode = new Doughnut();
-        boundary_mode = 1;
     }
+
+    //mirror
     else if(answer == 'm'){
         cout << "\nYou chose Mirror mode";
         edge_mode = new Mirror();
-        boundary_mode = 2;
     }
+
+    //classic
     else{
         cout << "\nYou chose Classic mode";
         edge_mode = new Classic();
-        boundary_mode = 0;
     }
 
+    //What is the display mode
     cout << "\nFinally, how would you like the results displayed?\n"
          << "-Auto (generations are displayed to the console automatically)\n"
          << "-Manual (generations are displayed when you press enter)\n"
@@ -163,45 +184,37 @@ int main(){
 
     cin >> answer;
 
+    //Manual
     if(answer == 'm'){
         cout << "\nYou chose Manual mode";
         display_mode = 1;
                 
     }
+
+    //File Output (output file asked for in DisplayFile() function within Game class)
     else if(answer == 'f'){
         cout << "\nYou chose File Output mode";
         display_mode = 2;
     }
+
+    //Auto
     else{
         cout << "\nYou chose Auto mode";
         display_mode = 0;
     }
 
+    //Use the randomizer Game constructor
     if(randomized){
         the_game = new Game(edge_mode, randomizer, display_mode);
     }
+    
+    //Use the input file Game constructor
     else{
         the_game = new Game(edge_mode, input_file_name, display_mode);
     }
 
     the_game->Simulate();
     return 0;
-}
-
-void printCellArr(Cell** e, int hight, int width){
-    cout << endl;
-    cout << hight << endl << width << endl;
-    for(int i = 0; i < hight; i++){
-        for(int j = 0; j < width; j++){
-            if(e[i][j].GetIsAlive()){
-                cout << "X";
-            }
-            else{
-                cout << "-";
-            }
-        }
-        cout << endl;
-    }
 }
 
 //Board Testing:
@@ -225,29 +238,29 @@ void printCellArr(Cell** e, int hight, int width){
 //Randomizer Testing:
         // int main()
         // {
-        //     int hight = 10;
+        //     int height = 10;
         //     int width = 20;
 
-        //     Cell **t1 = new Cell *[hight];
-        //     Cell **t2 = new Cell *[hight];
+        //     Cell **t1 = new Cell *[height];
+        //     Cell **t2 = new Cell *[height];
 
-        //     for (int i = 0; i < hight; i++)
+        //     for (int i = 0; i < height; i++)
         //     {
         //         t1[i] = new Cell[width];
         //         t2[i] = new Cell[width];
         //     }
 
-        //     Randomizer r(hight, width, 42893);
+        //     Randomizer r(height, width, 42893);
 
         //     t1 = r.GenerateCellArray();
 
-        //     printCellArr(t1, hight, width);
+        //     printCellArr(t1, height, width);
 
         //     EdgeType *e = new Classic();
 
-        //     e->Iterate(t1, t2, hight, width);
+        //     e->Iterate(t1, t2, height, width);
 
-        //     printCellArr(t2, hight, width);
+        //     printCellArr(t2, height, width);
 
         //     return 0;
         // }
@@ -264,13 +277,13 @@ void printCellArr(Cell** e, int hight, int width){
 
         // dim = g.ReadDimensions();
 
-        // int hight = dim[0];
+        // int height = dim[0];
         // int width = dim[1];
 
-        // Cell **t1 = new Cell *[hight];
-        // Cell **t2 = new Cell *[hight];
+        // Cell **t1 = new Cell *[height];
+        // Cell **t2 = new Cell *[height];
 
-        // for (int i = 0; i < hight; i++)
+        // for (int i = 0; i < height; i++)
         // {
         //     t1[i] = new Cell[width];
         //     t2[i] = new Cell[width];
@@ -278,13 +291,13 @@ void printCellArr(Cell** e, int hight, int width){
 
         // t1 = g.ReadCells();
 
-        // printCellArr(t1, hight, width);
+        // printCellArr(t1, height, width);
 
         // EdgeType *e = new Classic();
 
-        // t2 = e->Iterate(t1, t2, hight, width);
+        // t2 = e->Iterate(t1, t2, height, width);
 
-        // printCellArr(t2, hight, width);
+        // printCellArr(t2, height, width);
 
         // return 0;
     // }
@@ -293,10 +306,10 @@ void printCellArr(Cell** e, int hight, int width){
 
     // int main(){
     //     int width = 15;
-    //     int hight = 10;
-    //     Cell** tester = new Cell*[hight];
+    //     int height = 10;
+    //     Cell** tester = new Cell*[height];
         
-    //     for(int i = 0; i < hight; i++){
+    //     for(int i = 0; i < height; i++){
     //         tester[i] = new Cell[width];
     //         for(int j = 0; j < width; j++){
     //             int d = rand()%2;
@@ -320,7 +333,7 @@ void printCellArr(Cell** e, int hight, int width){
 
     //     tester2 = g.ReadCells();
 
-    //     printCellArr(tester, hight, width);
+    //     printCellArr(tester, height, width);
 
     //     cout << endl;
 
@@ -328,9 +341,9 @@ void printCellArr(Cell** e, int hight, int width){
 
     //     EdgeType * e = new Classic(); //can be any of the three edge types
 
-    //     tester2 = e->Iterate(tester, tester2, hight, width);
+    //     tester2 = e->Iterate(tester, tester2, height, width);
 
-    //     printCellArr(tester2, hight, width);
+    //     printCellArr(tester2, height, width);
     // }
 
     

@@ -8,6 +8,14 @@
 #include "edge_type.h"
 #include "mirror.h"
 #include "randomizer.h"
+/*
+Name:  Dan Haub
+Student ID#:  2315346
+Chapman Email:  haub@chapman.edu
+Course Number and Section:  CPSC 350-01
+Assignment:  2- Game of Life
+*/
+
 #include "game_reader.h"
 #include <iostream>
 

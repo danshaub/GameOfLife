@@ -1,3 +1,11 @@
+/*
+Name:  Dan Haub
+Student ID#:  2315346
+Chapman Email:  haub@chapman.edu
+Course Number and Section:  CPSC 350-01
+Assignment:  2- Game of Life
+*/
+
 #ifndef CELL_H
 #define CELL_H
 
@@ -23,8 +31,11 @@ class Cell{
         //on its current state and the passed number of neighbors
         bool UpdateGeneration(int neighbors);
 
+        //Accepts a boolean and sets the state of the cell
+        //to alive if true and dead if false
         void SetIsAlive(bool b);
 
+        //Returns true if the cell is alive and false if dead
         bool GetIsAlive();
 };
 
